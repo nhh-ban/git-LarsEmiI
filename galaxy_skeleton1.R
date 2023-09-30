@@ -3,7 +3,9 @@
 # -------------------------------------------
 
 # Comments below describes briefly a set of steps that solves Problem 1.
-
+library(tidyverse)
+raw_file <- readLines(con = "http://www.sao.ru/lv/lvgdb/article/suites_dw_Table1.txt")
+View(raw_file)
 # Read the entire data file into memory using the readLines()-function. Use the
 # URL direcly or read the data from the local file that is in the repository.
 
