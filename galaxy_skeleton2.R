@@ -105,13 +105,39 @@ galaxies <- read_csv("rewritten_data.csv")
 # observations.
 head(galaxies)
 
+
+# PROBLEM 3:
+
+# I want to look at a_26 - linear diameter of the galaxy which is the most
+# direct measure for size.
+
+# Possible explanation for the plot: It looks like there is smaller amounts of
+# very tiny galaxies as seen in the density plots compared to a sharp increase
+# when the a_26 reaches values from 1-5 after a sharp decrease again. 
+# My thoughts are that we do not have the technology yet to capture very tiny
+# galaxies
+
 ggplot(galaxies, aes(x = a_26)) +
-  geom_histogram(binwidth = 0.5, fill = "red", color = "black", alpha = 0.7) +
-  labs(title = "Dist of a_26",
-       x = "a_26 Value",
-       y = "Number of galaxies") +
+  geom_density(fill = "red", alpha = 0.7) +
+  labs(title = "Density Plot of a_26",
+       x = "Diameter kpc - a_26",
+       y = "Density") +
   theme_minimal()
 
-ggplot(galaxies, aes(a_26, log_lk)) +
-  geom_point() +
+# Investigating the tiniest galaxies and their distances
+tiny_galaxies <- galaxies %>% 
+  arrange(a_26) %>% 
+  head(50) # taking the 50 smallest galaxies with respect to a_26 values.
+
+# Scatter plot of Distance vs. Diameter for the 50 tiniest galaxies
+ggplot(tiny_galaxies, aes(x = D, y = a_26)) +
+  geom_point(alpha = 0.8) +
+  labs(title = "Scatter Plot of Distance vs. Diameter for the 50 Tiniest Galaxies",
+       x = "Distance (Mpc)",
+       y = "Galaxy Diameter (a_26)") +
   theme_minimal()
+
+# When looking at the 50 tiniest galaxies in the sample we see that most of
+# the really small ones are located at a smaller distance. This might be because
+# The technology is lacking in capturing small galaxies that are located very
+# far away.
